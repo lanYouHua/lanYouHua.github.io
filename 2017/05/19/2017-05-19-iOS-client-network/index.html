@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>iOS客户端网络优化指南 | LanSky</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="iOS,NSURLSession" />
+    
+    <meta name="description" content="现在客户端绝大多数的应用都需要进行网络访问，没有网络，手机上的那些应用基本都不能用了。 同时由于手机经常处在不停的移动当中，接收的信号质量和强度也会随之发生变化，继而导致网络访问存在大小时延。如何高效利用网络资源并有效的降低网络流量，迅速把内容展现给用户，确实值得对网络进行优化。最近看了一本书《高性能iOS应用开发》里面提到的内容，进行总结。 在进行网络优化时候，我们需要指标进行衡量，那些指标是">
+<meta name="keywords" content="iOS,NSURLSession">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS客户端网络优化指南">
+<meta property="og:url" content="http://blog.lansky.me/2017/05/19/2017-05-19-iOS-client-network/index.html">
+<meta property="og:site_name" content="LanSky">
+<meta property="og:description" content="现在客户端绝大多数的应用都需要进行网络访问，没有网络，手机上的那些应用基本都不能用了。 同时由于手机经常处在不停的移动当中，接收的信号质量和强度也会随之发生变化，继而导致网络访问存在大小时延。如何高效利用网络资源并有效的降低网络流量，迅速把内容展现给用户，确实值得对网络进行优化。最近看了一本书《高性能iOS应用开发》里面提到的内容，进行总结。 在进行网络优化时候，我们需要指标进行衡量，那些指标是">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1ffqzods5t4j30rs0h1wf3.jpg">
+<meta property="og:updated_time" content="2017-05-19T14:24:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS客户端网络优化指南">
+<meta name="twitter:description" content="现在客户端绝大多数的应用都需要进行网络访问，没有网络，手机上的那些应用基本都不能用了。 同时由于手机经常处在不停的移动当中，接收的信号质量和强度也会随之发生变化，继而导致网络访问存在大小时延。如何高效利用网络资源并有效的降低网络流量，迅速把内容展现给用户，确实值得对网络进行优化。最近看了一本书《高性能iOS应用开发》里面提到的内容，进行总结。 在进行网络优化时候，我们需要指标进行衡量，那些指标是">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006tNc79gy1ffqzods5t4j30rs0h1wf3.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c6fa2973e38a0fc13e5f8084964f875d";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">时间永不停息，要紧的是思考自己现在能做的事，不浪费每一瞬间。</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Technology/iOS/">iOS</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="[post]-2017-05-19-iOS-client-network" class="article article-single article-type-[post]" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        iOS客户端网络优化指南
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/05/19/2017-05-19-iOS-client-network/" class="article-date">
+            <time datetime="2017-05-19T13:22:50.000Z" itemprop="datePublished">2017-05-19</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSURLSession/">NSURLSession</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1ffqzods5t4j30rs0h1wf3.jpg" alt="iOS"></p>
+<p>现在客户端绝大多数的应用都需要进行网络访问，没有网络，手机上的那些应用基本都不能用了。 同时由于手机经常处在不停的移动当中，接收的信号质量和强度也会随之发生变化，继而导致网络访问存在大小时延。如何高效利用网络资源并有效的降低网络流量，迅速把内容展现给用户，确实值得对网络进行优化。最近看了一本书<a href="http://www.ituring.com.cn/book/1924" target="_blank" rel="external">《高性能iOS应用开发》</a>里面提到的内容，进行总结。</p>
+<p>在进行网络优化时候，我们需要指标进行衡量，那些指标是影响网络的因素，了解之后，我呢就可以最大成都提高性能。</p>
+<h4 id="指标和测量"><a href="#指标和测量" class="headerlink" title="指标和测量"></a>指标和测量</h4><h5 id="DNS查找时间"><a href="#DNS查找时间" class="headerlink" title="DNS查找时间"></a>DNS查找时间</h5><p>发起连接的第一步就是DNS查找。查找时间如主DNS服务器的性能成函数关系。最终的连接时与追踪到目的    IP地址的路由成函数关系。</p>
+<p>为了最大限度减少DNS查询时间所产生的延迟时间，我们需要遵循以下的最佳实践。</p>
+<ul>
+<li>最小化应用使用的专有域名的数量。<ul>
+<li>身份管理(登录、注销、配置文件)</li>
+<li>数据服务(API断点)</li>
+<li>CDN(图片和其他静态人工产品)</li>
+</ul>
+</li>
+<li>在应用启动时不需要连接所有的域名， 可能只需要身份管理和初始画面所需要的数量。</li>
+</ul>
+<h5 id="SSL握手时间"><a href="#SSL握手时间" class="headerlink" title="SSL握手时间"></a>SSL握手时间</h5><p>苹果提出，上架的应用最好需要支持HTTPS的连接方式。HTTPS在连接开始时，先进行SSL握手，SSL握手主要是验证服务器证书，同时共享用于通信的随机密码。具体流程还是比较耗费时间的。</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tKfTcgy1ffpivycjcjj30el04s3ze.jpg" alt="SSL握手"></p>
+<p>我们可以遵循以下的方案：</p>
+<ul>
+<li>最大程度地减少应用发起的连接数。</li>
+<li>请求结束后不要关闭HTTP/S连接。为所有的HTTPS请求添加头Connection：keep-alive.这确保请求可以复用。</li>
+<li>使用域分片</li>
+</ul>
+<h5 id="网络类型"><a href="#网络类型" class="headerlink" title="网络类型"></a>网络类型</h5><p>一般情况下，IOS设备可以使用的网络为：WIFI、4G、3G、2G。这里面也就是2G和3G的网速不是很好。3G中尤其是中国TDS_CDMA制式网络最差。所我们在进行网络优化的时候，尤其是要注意低网速环境和弱网环境。比如洗手间、地下室、高铁等等。</p>
+<p>所以我们可以着手从以下几个方面考虑优化：</p>
+<ul>
+<li>设计时考虑不同的网络可用性。</li>
+<li>出现失败时，在随机的、以指数增长的延迟后进行重试。</li>
+<li>设立强制刷新之间的最短时间。</li>
+<li>使用可到达性库发现网络状态的变化。</li>
+<li>不要缓存网络状态。</li>
+<li>基于网络类型下载内容。</li>
+<li>乐观的预先下载。</li>
+<li>如果适用， 当网络可用时，支持同步的离线存储。</li>
+</ul>
+<h5 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h5><p>延迟是指从服务器请求资源时，在网络传输上花费的额外时间。可以用以下公式来衡量：</p>
+<p>Round-Trip Time  =  (Timestamp of  Response -  Timestamp of Request)</p>
+<p>Network  Latency = Round-Trip Time —  Time Spent on Server</p>
+<p>就是 适用请求过程中花费的总时间减去服务器上花费的时间。</p>
+<p>如果你有数据来分析任何模式下的延迟，还需要考虑：</p>
+<ul>
+<li>连接超时</li>
+<li>响应超时</li>
+<li>载荷大小</li>
+</ul>
+<h5 id="网络API"><a href="#网络API" class="headerlink" title="网络API"></a>网络API</h5><p>在执行任何网络操作时，重要的是你选择的API。</p>
+<p>iOS 早期版本提供NSURLConnection 来执行网络请求。现在苹果与iOS7 推出的NSURLSession 是一个更好的选择。具有以下优点：</p>
+<ul>
+<li>NSURLSession 对于放入其中的相关请求而言是一个可配置的容器。</li>
+<li>任何网络任务都可以暂停、停止并重新启动。</li>
+<li>你可以继承NSURLSession来配置会话。以便在每个会话的基础上使用专用存储。</li>
+</ul>
+<ul>
+<li>当使用NSURLConnection 时，如果遇到身份验证问题，问题会在任何一个请求中返回，你无法明确知道哪个请求遇到了这个问题。使用NSURLSession，委托会处理身份验证。</li>
+<li>NSURLSession有一些基于块的异步方法，但委托不能是使用它们。当发起一个请求时，要么成功，要么失败，即使它需要身份验证。</li>
+<li>使用NSURLSession，你可以采取一种混合模式的方法。这也就是说，你可以使用基于块的异步方法，还可以设置委托处理身份验证。</li>
+</ul>
+<h4 id="应用部署"><a href="#应用部署" class="headerlink" title="应用部署"></a>应用部署</h4><h5 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h5><p>服务器部署上我们可以考虑优化的方向：</p>
+<ul>
+<li>使用多个数据中心</li>
+<li>使用CDN提供静态内容</li>
+<li>使用接近的边缘服务器</li>
+<li>避免使用多个域名</li>
+</ul>
+<h5 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h5><p><img src="http://ww3.sinaimg.cn/large/006tKfTcgy1ffpityc42qj30ff08v40j.jpg" alt="多路复用请求"></p>
+<p>为了恰当地设置网络，正确地配置HTTP/S请求很重要。</p>
+<ul>
+<li>不要为每一个操作单元都进行一次请求， 使用批量请求。即使必须实现多个后端子系统来完成，但是合并批量请求会带来较大的性能提升，所以还是值得的。客户端可以向多个后端发送多路复用的请求，而服务器可以使用多部分/混合回复作为回应。客户端将对回复进行复用。</li>
+<li>使用持续的HTTP连接，该链接也被成为HTTP长连接。有助于最大限度减少TCP和SSL握手的消耗，同时也减少网络拥塞。或者使用WebSockets。</li>
+<li>在任何可以的情况下使用HTTP/2。</li>
+<li>使用HTTP缓存头设置正确的缓存级别。影响HTTP缓存的响应头是Last-Modified、Expires、ETag和Cache-Control。</li>
+</ul>
+<h5 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h5><p>如何你的应用是以数据为导向的，那么选择合适其传输的正确格式很关键。选择格式的时候需要注意：</p>
+<ul>
+<li>使用数据压缩。NSURLRequest 会自动在头部添加Accept-Encoding:gzip, deflate。</li>
+<li>选择正确的数据格式。原生应用最常用的数据格式正好是JSON和XML。</li>
+</ul>
+<h5 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h5><p>通过使用工具，创建模拟环境并监控某些网络参数，来进一步调整优化网络：</p>
+<ul>
+<li><strong>网络链接调节器</strong>。他可以模拟不同的网络条件：<ul>
+<li>入站通信</li>
+<li>出站通信</li>
+<li>DNS</li>
+<li>协议IPv4，IPv6</li>
+<li>界面 WiFi、移动。</li>
+</ul>
+</li>
+<li><strong>AT &amp; T 应用资源优化器</strong>。</li>
+<li><strong>Charles</strong>。</li>
+</ul>
+<h4 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h4><h5 id="使用HTTPS"><a href="#使用HTTPS" class="headerlink" title="使用HTTPS"></a>使用HTTPS</h5><ul>
+<li>CRIME攻击。不要使用SSL/TLS压缩。使用</li>
+<li>TLS压缩，任何请求都会受到CRIME(Compression Ratio Info-leak Made Easy, 压缩率使信息很容易泄露 )攻击。要想缓解风险，可以关闭TLS压缩，并给每个响应发送反CRIME cookie, 较为简单的方式是发送一个唯一的随机序列cookie.</li>
+<li>BREACH攻击。如何使用请求/响应正文压缩(Transfer-Encoding=gzip或deflate)，你的通信会受到BREACH(Browser Reconnaissance and Exfiltration via adaptive Compression of Hypertext,通过自使用超文本压缩的浏览器侦听和渗透)攻击。</li>
+</ul>
+<h5 id="使用证书锁定"><a href="#使用证书锁定" class="headerlink" title="使用证书锁定"></a>使用证书锁定</h5><p><img src="http://ww2.sinaimg.cn/large/006tKfTcgy1ffpi680thij30g103wwfe.jpg" alt="中间人攻击"></p>
+<p>上图显示了中间攻击人的概要，其中中介器拦截来自设备的请求。当设备发送对服务器证书的请求时，中介器将请求发送到服务器并捕获其应答。</p>
+<p>这个问题的解决方案就是所谓的证书锁定。工作原理是，通过只信任一个或几个能够作为应用根证书的证书，应用穿件一个自定义信任级别。这个允许应用仅信任来自白名单的证书，确保设备上不安装那些允许网络监视的未知证书。</p>
+<p>摘自《高性能iOS应用开发》本书的代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^HPResponseHandler)(<span class="built_in">NSURLResponse</span> *, <span class="built_in">NSError</span> *error);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HPPinnedRequestExecutor</span>  </span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSURLRequest</span> *request;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) HPResponseHandler handler;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HPPinnedRequestExecutor</span> () &lt;<span class="title">NSURLConnectionDelegate</span>&gt; </span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSURLRequest</span> *request;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">HPPinnedRequestExecutor</span></span></div><div class="line"></div><div class="line">-(<span class="keyword">instancetype</span>)initWithRequest:(<span class="built_in">NSURLRequest</span> *)request &#123; </div><div class="line">	<span class="keyword">if</span>(<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</div><div class="line">		<span class="keyword">self</span>.request = request;</div><div class="line">    &#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>; </div><div class="line">&#125;</div><div class="line"></div><div class="line">-(<span class="keyword">void</span>)executeWithHandler:(HPResponseHandler)handler &#123;</div><div class="line">	<span class="keyword">self</span>.handler = handler;</div><div class="line">	[[<span class="built_in">NSURLConnection</span> alloc] initWithRequest:<span class="keyword">self</span>.request delegate:<span class="keyword">self</span>];</div><div class="line">&#125;</div><div class="line">- (<span class="keyword">void</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection </div><div class="line">  		didReceiveResponse:(<span class="built_in">NSURLResponse</span> *)response &#123; 	</div><div class="line">         <span class="comment">//做常规的事情，用处理器发送结果</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//方法检查委托是否能够响应保护空间的身份验证形式，对于SSL(服务器信任)，返回YES.</span></div><div class="line">-(<span class="built_in">BOOL</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection </div><div class="line">  		canAuthenticateAgainstProtectionSpace:(<span class="built_in">NSURLProtectionSpace</span>*)space &#123; </div><div class="line">	<span class="keyword">return</span> [<span class="built_in">NSURLAuthenticationMethodServerTrust</span> </div><div class="line">            	isEqualToString:space.authenticationMethod];   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//方法处理challenge, 可以取消认证(无效时)或使用凭证(有效时)</span></div><div class="line">- (<span class="keyword">void</span>)connection:(<span class="built_in">NSURLConnection</span> *)connection </div><div class="line">  didReceiveAuthenticationChallenge:(<span class="built_in">NSURLAuthenticationChallenge</span> *)challenge &#123; </div><div class="line"> 	<span class="keyword">void</span> (^cancel)() = ^&#123;</div><div class="line">		[challenge.sender cancelAuthenticationChallenge:challenge];</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">if</span>([<span class="built_in">NSURLAuthenticationMethodServerTrust</span></div><div class="line">		isEqualToString:challenge.protectionSpace.authenticationMethod]) &#123;</div><div class="line">		SecTrustRef serverTrust = challenge.protectionSpace.serverTrust; </div><div class="line">		<span class="keyword">if</span>(serverTrust == <span class="literal">nil</span>) &#123;</div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">    	OSStatus status = SecTrustEvaluate(serverTrust, <span class="literal">NULL</span>);</div><div class="line">    	<span class="keyword">if</span>(status != errSecSuccess) &#123;</div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">		SecCertificateRef svrCert = SecTrustGetCertificateAtIndex(serverTrust, <span class="number">0</span>); </div><div class="line">		<span class="keyword">if</span>(svrCert == <span class="literal">nil</span>) &#123;</div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">		<span class="built_in">CFDataRef</span> svrCertData = SecCertificateCopyData(svrCert); </div><div class="line">		<span class="keyword">if</span>(svrCertData == <span class="literal">nil</span>) &#123;</div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">		<span class="keyword">const</span> <span class="built_in">UInt8</span>* <span class="keyword">const</span> data = <span class="built_in">CFDataGetBytePtr</span>(svrCertData);</div><div class="line">		<span class="keyword">const</span> <span class="built_in">CFIndex</span> size = <span class="built_in">CFDataGetLength</span>(serverCertificateData);</div><div class="line">		<span class="built_in">NSData</span>* cert1 = [<span class="built_in">NSData</span> dataWithBytes:data length:(<span class="built_in">NSUInteger</span>)size];</div><div class="line">		<span class="keyword">if</span>(cert1 == <span class="literal">nil</span>) &#123; </div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">    	<span class="built_in">NSString</span> *file = [[<span class="built_in">NSBundle</span> mainBundle]  </div><div class="line">    								pathForResource:<span class="string">@"pinned-key"</span></div><div class="line">       								ofType:<span class="string">@"der"</span>];</div><div class="line">		<span class="built_in">NSData</span>* cert2 = [<span class="built_in">NSData</span> dataWithContentsOfFile:file];</div><div class="line">		<span class="keyword">if</span>(cert2 == <span class="literal">nil</span>) &#123;</div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">// 如果发生了失败，则将证书置为无效，与找不到证书，或与绑定的秘钥不匹配。</span></div><div class="line">		<span class="keyword">if</span>(![cert1 isEqualToData:cert2]) &#123; </div><div class="line">			cancel();</div><div class="line">			<span class="keyword">return</span>; </div><div class="line">		&#125;</div><div class="line">		[challenge.sender </div><div class="line">				useCredential:[<span class="built_in">NSURLCredential</span> credentialForTrust:serverTrust] </div><div class="line">				forAuthenticationChallenge:challenge];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ww3.sinaimg.cn/large/006tKfTcgy1ffpirixydqj30g10apacl.jpg" alt="iOS8更新版本的注释"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/lanYouHua" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/3208223907" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/13/2017-05-13-python-object/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">python学习之面向对象</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/19/2017-05-19-iOS-client-network/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ww2.sinaimg.cn/large/006tNc79gy1ffqzods5t4j30rs0h1wf3.jpg)" alt="iOS客户端网络优化指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-title"><a href="/2017/05/19/2017-05-19-iOS-client-network/" class="title">iOS客户端网络优化指南</a></p>
+                            <p class="item-date"><time datetime="2017-05-19T13:22:50.000Z" itemprop="datePublished">2017-05-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/13/2017-05-13-python-object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ww3.sinaimg.cn/large/006tKfTcgy1ffhtoly4sij30sg0is417.jpg)" alt="python学习之面向对象" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2017/05/13/2017-05-13-python-object/" class="title">python学习之面向对象</a></p>
+                            <p class="item-date"><time datetime="2017-05-13T01:05:06.000Z" itemprop="datePublished">2017-05-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/07/2017-05-06-mysql-insert-update/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ww3.sinaimg.cn/large/006tKfTcgy1ffhtmwpoupj30d206yjrc.jpg)" alt="MySQL 之 INSERT TABLE … VALUES …  ON DUPLICATE KEY UP DATE … 用法总结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/MySQL/">MySQL</a></p>
+                            <p class="item-title"><a href="/2017/05/07/2017-05-06-mysql-insert-update/" class="title">MySQL 之 INSERT TABLE … VALUES …  ON DUPLICATE KEY UP DATE … 用法总结</a></p>
+                            <p class="item-date"><time datetime="2017-05-07T06:50:03.000Z" itemprop="datePublished">2017-05-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/07/2017-05-07-python-file-operation/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://ww3.sinaimg.cn/large/006tKfTcgy1ffhtoly4sij30sg0is417.jpg)" alt="python学习之文件操作" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2017/05/07/2017-05-07-python-file-operation/" class="title">python学习之文件操作</a></p>
+                            <p class="item-date"><time datetime="2017-05-07T06:50:03.000Z" itemprop="datePublished">2017-05-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSURLSession/">NSURLSession</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NSURLSession/" style="font-size: 10px;">NSURLSession</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 Lanyouhua</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
