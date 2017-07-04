@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>HTML5布局的个人总结 | LanSky</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="position,flex,float,inline-block,box-sizing" />
+    
+    <meta name="description" content="最近应项目的需求，为了更好的支持产品开发。所以针对H5进行了系统学习。本人准备先从基本的布局开始，学习步骤： 布局 =&amp;gt; 润色 =&amp;gt; DOM操作 =&amp;gt; 动画 =&amp;gt; 其他 。 学习主要以Chrome浏览器为主，毕竟人家用户量最多。本人是在阅读大量技术资料，并进行二次消化总结出来的，文章的篇幅略长。 布局的基本属性学习布局之前，需要先了解一个元素到底哪些属性会影响它在界面的形">
+<meta name="keywords" content="position,flex,float,inline-block,box-sizing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML5布局的个人总结">
+<meta property="og:url" content="http://blog.lansky.me/2017/06/04/H5-layout-summary/index.html">
+<meta property="og:site_name" content="LanSky">
+<meta property="og:description" content="最近应项目的需求，为了更好的支持产品开发。所以针对H5进行了系统学习。本人准备先从基本的布局开始，学习步骤： 布局 =&amp;gt; 润色 =&amp;gt; DOM操作 =&amp;gt; 动画 =&amp;gt; 其他 。 学习主要以Chrome浏览器为主，毕竟人家用户量最多。本人是在阅读大量技术资料，并进行二次消化总结出来的，文章的篇幅略长。 布局的基本属性学习布局之前，需要先了解一个元素到底哪些属性会影响它在界面的形">
+<meta property="og:image" content="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01u0mhkvj30nm0bt74v.jpg">
+<meta property="og:updated_time" content="2017-07-04T14:07:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML5布局的个人总结">
+<meta name="twitter:description" content="最近应项目的需求，为了更好的支持产品开发。所以针对H5进行了系统学习。本人准备先从基本的布局开始，学习步骤： 布局 =&amp;gt; 润色 =&amp;gt; DOM操作 =&amp;gt; 动画 =&amp;gt; 其他 。 学习主要以Chrome浏览器为主，毕竟人家用户量最多。本人是在阅读大量技术资料，并进行二次消化总结出来的，文章的篇幅略长。 布局的基本属性学习布局之前，需要先了解一个元素到底哪些属性会影响它在界面的形">
+<meta name="twitter:image" content="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01u0mhkvj30nm0bt74v.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c6fa2973e38a0fc13e5f8084964f875d";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">时间永不停息，要紧的是思考自己现在能做的事，不浪费每一瞬间。</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/">Technology</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/HTML5/">HTML5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Technology/iOS/">iOS</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Technology/HTML5/">HTML5</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="[post]-H5-layout-summary" class="article article-single article-type-[post]" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        HTML5布局的个人总结
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/06/04/H5-layout-summary/" class="article-date">
+            <time datetime="2017-06-04T13:44:34.000Z" itemprop="datePublished">2017-06-04</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/box-sizing/">box-sizing</a>, <a class="tag-link" href="/tags/flex/">flex</a>, <a class="tag-link" href="/tags/float/">float</a>, <a class="tag-link" href="/tags/inline-block/">inline-block</a>, <a class="tag-link" href="/tags/position/">position</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01u0mhkvj30nm0bt74v.jpg" alt="HTML与CSS"></p>
+<p>最近应项目的需求，为了更好的支持产品开发。所以针对H5进行了系统学习。本人准备先从基本的布局开始，学习步骤： <strong>布局 =&gt; 润色 =&gt; DOM操作 =&gt; 动画 =&gt; 其他</strong> 。</p>
+<p>学习主要以Chrome浏览器为主，毕竟人家用户量最多。本人是在阅读大量技术资料，并进行二次消化总结出来的，文章的篇幅略长。</p>
+<h2 id="布局的基本属性"><a href="#布局的基本属性" class="headerlink" title="布局的基本属性"></a>布局的基本属性</h2><p>学习布局之前，需要先了解一个元素到底哪些属性会影响它在界面的形状和位置，这里我总结一下。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>元素宽度</td>
+</tr>
+<tr>
+<td>height</td>
+<td>元素高度</td>
+</tr>
+<tr>
+<td>margin</td>
+<td>边界</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>内边距</td>
+</tr>
+<tr>
+<td>border</td>
+<td>边框</td>
+</tr>
+<tr>
+<td>left</td>
+<td>距离左侧</td>
+</tr>
+<tr>
+<td>right</td>
+<td>距离右侧</td>
+</tr>
+<tr>
+<td>top</td>
+<td>距离顶部</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>距离底部</td>
+</tr>
+</tbody>
+</table>
+<p>就是上面这些基本的元素属性直接控制着元素的形状和位置。那float、display、postion、box-sizing这些属性作用是什么呢？它们存在会间接的影响这些属性最终的作用效果，可以使某些基本属性无效，某些基本属性有效。</p>
+<h2 id="基本的默认布局"><a href="#基本的默认布局" class="headerlink" title="基本的默认布局"></a>基本的默认布局</h2><h3 id="body和html根标签"><a href="#body和html根标签" class="headerlink" title="body和html根标签"></a>body和html根标签</h3><p>这里先来讨论一下<code>body</code>这个元素。<code>body</code>作为<code>html</code>的主体部分，是整个显示的最底层容器。假设我们给<code>body</code>一个边框样式，并设置高度为100px。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们发现，<code>body</code>的默认还有8px的<code>margin</code>距离。同时我们也发现，<code>body</code>默认也是块元素，占据整行宽度。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01g405tyj31kw0n97du.jpg" alt="body默认布局"></p>
+<blockquote>
+<p>Tips: </p>
+<p>这里如果想设置body为占据整个屏幕，而不是跟随内容扩展。则需要将HTML的高度也设为100%。但是在本案例中，如果将body和html高度都设置为100%，会发现右侧出现滚动条的现象。是因为border和margin的会撑开了body的预设的宽度。</p>
+</blockquote>
+<h3 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h3><p>盒子模型是css当中最重要的概念， 包括<code>margin</code>、<code>padding</code>、<code>border</code>、<code>content</code>。下面的是标准的盒子模型，当然还有IE盒子模型，这里主要以chrome为准，暂不讨论其他浏览器。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgaodmf1fsj31300lyqm6.jpg" alt="标准的盒子模型"></p>
+<p>从这样图我们看到了，元素的高和宽，是不包括<code>padding</code>和<code>border</code>的。如果设置了元素的<code>padding</code>和<code>border</code>则该元素会撑大所占用的区域。如下图所示</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01ho8fz4j31kw11i7nw.jpg" alt="盒子属性"></p>
+<p>这里我们就能看出来，设置<code>padding</code>和<code>border</code>会撑大元素的范围，如果不想撑大元素的范围的怎么办呢？我们可以使用：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgfvg81lhqj31kw0xqal2.jpg" alt="在设置了box-sizing属性后的盒子模型"></p>
+<p>元素的内容的大小变为了200*200的大小了，box-sizing属性的引入使得此元素的内边距和边框不再会增加它的宽度。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">* &#123;</div><div class="line">  <span class="attribute">-webkit-box-sizing</span>: border-box;</div><div class="line">  <span class="attribute">-moz-box-sizing</span>: border-box;</div><div class="line">  <span class="attribute">box-sizing</span>: border-box;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="display属性解读"><a href="#display属性解读" class="headerlink" title="display属性解读"></a>display属性解读</h2><p>这里我们先来尝试一下默认布局，这里我们只设置<code>width</code>和<code>height</code>属性，其他属性暂不进行设置，这里我们使用<code>div</code> 、<code>p</code>、 <code>a</code> 这三个标签来布局。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"background: orange"</span>&gt;</span>  比如，Langley（1996) 定义的机器学习是“机器学习是一门人工智能的科学，该领域的主要研究对象是<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"width: 100px"</span>&gt;</span>人工智能<span class="tag">&lt;/<span class="name">a</span>&gt;</span>，特别是如何在经验学习中改善<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>具体算法<span class="tag">&lt;/<span class="name">a</span>&gt;</span>的性能”。 <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"background: pink"</span> &gt;</span>  比如，Langley（1996) 定义的机器学习是“机器学习是一门人工智能的科学，该领域的主要研究对象是<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"width: 100px"</span>&gt;</span>人工智能<span class="tag">&lt;/<span class="name">a</span>&gt;</span>，特别是如何在经验学习中改善<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>具体算法<span class="tag">&lt;/<span class="name">a</span>&gt;</span>的性能”。（Machine learning is a science of the artificial. The field's main objects of study are artifacts, specifically algorithms that improve their performance with experience.'） <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"background: green"</span> &gt;</span>  比如，Langley（1996) 定义的机器学习是“机器学习是一门人工智能的科学，该领域的主要研究对象是<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">style</span>=<span class="string">"width: 100px"</span>&gt;</span>人工智能<span class="tag">&lt;/<span class="name">a</span>&gt;</span>，特别是如何在经验学习中改善<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>具体算法<span class="tag">&lt;/<span class="name">a</span>&gt;</span>的性能”。（Machine learning is a science of the artificial. The field's main objects of study are artifacts, specifically algorithms that improve their performance with experience.'） <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>显示效果如下图：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01eayhm6j31kw0nl1d9.jpg" alt="块元素与行内元素布局方式"></p>
+<p>这里<code>P</code>标签和<code>a</code>标签表现完全不同布局风格。<code>p</code>标签默认占用整行显示，而<code>a</code>标签就占据行内文本显示的区域。这里<code>p</code>标签就是块元素，<code>a</code>标签就是行内元素。通过设置<code>display</code>属性可以修改当前元素是块元素还是行内元素。下面会详细讲解</p>
+<h3 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h3><p>块级元的特点：</p>
+<ul>
+<li><strong>总是从新行开始</strong></li>
+<li><strong>高度、行高、外边距以及内边距都可以控制</strong></li>
+<li><strong>宽度默认是容器的100%</strong></li>
+<li><strong>可以容纳内联元素和其他块级元素</strong></li>
+</ul>
+<p>块级元素汇总：</p>
+<table>
+<thead>
+<tr>
+<th>块级元素</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>address</td>
+<td>作者信息</td>
+</tr>
+<tr>
+<td>blockquote</td>
+<td>标签定义块引用</td>
+</tr>
+<tr>
+<td>caption</td>
+<td>定义表格的标题。在table标签内是块级元素，在外面是行内元素</td>
+</tr>
+<tr>
+<td>dl、dt、dd</td>
+<td>dl定义列表，dt定义项目，dd定义列表</td>
+</tr>
+<tr>
+<td>ul、ol、li、</td>
+<td>ul 无序列表、ol有序列表、li列表元素</td>
+</tr>
+<tr>
+<td>div</td>
+<td>通用容器</td>
+</tr>
+<tr>
+<td>fieldset、legend</td>
+<td>标签将表单内容的一部分打包，生成一组相关表单的字段。legend元素为其表示标题</td>
+</tr>
+<tr>
+<td>form</td>
+<td>表单元素</td>
+</tr>
+<tr>
+<td>h1、h2、h3、h4、h5、h6、</td>
+<td>标题元素</td>
+</tr>
+<tr>
+<td>hr</td>
+<td>水平分割线</td>
+</tr>
+<tr>
+<td>p</td>
+<td>段落标签</td>
+</tr>
+<tr>
+<td>pre</td>
+<td>pre 元素可定义预格式化的文本。被包围在 pre 元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体</td>
+</tr>
+<tr>
+<td>table、tbody、td、tfoot、th、thead、tr</td>
+<td>tbody、tfoot、thead 是分组专用，必须全部使用。使用顺序thead、tfoot、tbody。tr是块级元素。td是行内元素</td>
+</tr>
+</tbody>
+</table>
+<h3 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h3><p>行内元素的特点：</p>
+<ul>
+<li><strong>和相邻行内元素在一行上</strong></li>
+<li><strong><code>height</code>、<code>width</code>无效，可以通过<code>line-height</code>来设置</strong></li>
+<li><strong>设置<code>margin</code>和<code>padding</code>时， 只有左右<code>margin</code>和<code>padding</code>有效，上下<code>margin</code>和<code>padding</code>无效</strong></li>
+<li><strong>默认宽度就是它本身内容的宽度</strong></li>
+<li><strong>行内元素只能容纳文本或其他内联元素</strong></li>
+</ul>
+<p>行内元素汇总：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">行内元素</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">a</td>
+<td style="text-align:left">超链接标签</td>
+</tr>
+<tr>
+<td style="text-align:left">b</td>
+<td style="text-align:left">标签规定粗体文本</td>
+</tr>
+<tr>
+<td style="text-align:left">bdo</td>
+<td style="text-align:left">元素可覆盖默认的文本方向</td>
+</tr>
+<tr>
+<td style="text-align:left">big</td>
+<td style="text-align:left">标签呈现大号字体效果</td>
+</tr>
+<tr>
+<td style="text-align:left">cite</td>
+<td style="text-align:left">标签通常表示它所包含的文本对某个参考文献的引用</td>
+</tr>
+<tr>
+<td style="text-align:left">button</td>
+<td style="text-align:left">标签按钮，type类型为 submit、reset、button 没有具体语义</td>
+</tr>
+<tr>
+<td style="text-align:left">br</td>
+<td style="text-align:left">插入一个简单的换行符</td>
+</tr>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:left">标签用于表示计算机源代码或者其他机器可以阅读的文本内容</td>
+</tr>
+<tr>
+<td style="text-align:left">del</td>
+<td style="text-align:left">删除元素，默认行内元素</td>
+</tr>
+<tr>
+<td style="text-align:left">dfn</td>
+<td style="text-align:left">标签可标记那些对特殊术语或短语的定义</td>
+</tr>
+<tr>
+<td style="text-align:left">em</td>
+<td style="text-align:left">标签告诉浏览器把其中的文本表示为强调的内容。</td>
+</tr>
+<tr>
+<td style="text-align:left">i</td>
+<td style="text-align:left">标签显示斜体文本效果</td>
+</tr>
+<tr>
+<td style="text-align:left">iframe</td>
+<td style="text-align:left">元素会创建包含另外一个文档的内联框架</td>
+</tr>
+<tr>
+<td style="text-align:left">img</td>
+<td style="text-align:left">图片链接</td>
+</tr>
+<tr>
+<td style="text-align:left">input</td>
+<td style="text-align:left">标签用于搜集用户信息。</td>
+</tr>
+<tr>
+<td style="text-align:left">ins</td>
+<td style="text-align:left">标签定义已经被插入文档中的文本，下划线</td>
+</tr>
+<tr>
+<td style="text-align:left">label</td>
+<td style="text-align:left">标签为 input 元素定义标注（标记)</td>
+</tr>
+<tr>
+<td style="text-align:left">map</td>
+<td style="text-align:left">定义一个客户端图像映射。图像映射（image-map）指带有可点击区域的一幅图像</td>
+</tr>
+<tr>
+<td style="text-align:left">object</td>
+<td style="text-align:left">定义一个嵌入的对象。</td>
+</tr>
+<tr>
+<td style="text-align:left">q</td>
+<td style="text-align:left">标签定义短的引用. 浏览器经常在引用的内容周围添加引号。</td>
+</tr>
+<tr>
+<td style="text-align:left">select</td>
+<td style="text-align:left">元素可创建单选或多选菜单</td>
+</tr>
+<tr>
+<td style="text-align:left">small</td>
+<td style="text-align:left">标签呈现小号字体效果</td>
+</tr>
+<tr>
+<td style="text-align:left">span</td>
+<td style="text-align:left">标签被用来组合文档中的行内元素</td>
+</tr>
+<tr>
+<td style="text-align:left">strong</td>
+<td style="text-align:left">用于强调文本，但它强调的程度更强一些</td>
+</tr>
+<tr>
+<td style="text-align:left">sub</td>
+<td style="text-align:left">标签可定义下标文本</td>
+</tr>
+<tr>
+<td style="text-align:left">tt</td>
+<td style="text-align:left">标签呈现类似打字机或者等宽的文本效果</td>
+</tr>
+<tr>
+<td style="text-align:left">textarea</td>
+<td style="text-align:left">标签定义多行的文本输入控件</td>
+</tr>
+<tr>
+<td style="text-align:left">var</td>
+<td style="text-align:left">标签表示变量的名称，或者由用户提供的值 var 、code、pre</td>
+</tr>
+<tr>
+<td style="text-align:left">button</td>
+<td style="text-align:left">发布按钮</td>
+</tr>
+</tbody>
+</table>
+<p>button中的type的属性有哪些：</p>
+<ul>
+<li>button定义可点击按钮</li>
+<li>checkbox定义复选框</li>
+<li>file定义输入字段和浏览按钮，供文件上传</li>
+<li>hidden定义隐藏的输入字段</li>
+<li>image定义图像形式的提交按钮</li>
+<li>password定义密码字段</li>
+<li>radio定义单选按钮</li>
+<li>reset定义重置按钮</li>
+<li>submit定义提交按钮</li>
+<li>text定义单行的输入字段，用户可在其中输入文本</li>
+</ul>
+<h4 id="块级元素与行内元素使用"><a href="#块级元素与行内元素使用" class="headerlink" title="块级元素与行内元素使用"></a>块级元素与行内元素使用</h4><h2 id="float属性解读"><a href="#float属性解读" class="headerlink" title="float属性解读"></a>float属性解读</h2><h4 id="float"><a href="#float" class="headerlink" title="float"></a>float</h4><p>float属性用于创建浮动盒， 浮动盒会将元素的左边界或者右边界移动到包含一块或者另一个浮动盒的边界。</p>
+<ul>
+<li>left 移动元素，使其左边挨着包含块的左边界，或者另一个浮动元素的右边界</li>
+<li>right 移动元素，使其右边界挨着包含块的右边界，或者一个浮动元素的左边界</li>
+<li>none 元素位置固定</li>
+</ul>
+<p>这里float有很多情况，我们用两个div来描述一下</p>
+<ul>
+<li>首先是黄色模块，绿色模块都为float浮动元素。</li>
+</ul>
+<p>如下: <img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgjxczgeunj31kw0ragth.jpg" alt="黄色绿色都为float元素"></p>
+<p>这里，因为黄色元素是浮动元素，所以绿色浮动元素紧挨着黄色浮动元素。</p>
+<ul>
+<li>黄色不是float元素，绿色是float元素。</li>
+</ul>
+<p>如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fgjxf32ktbj31kw0rfdng.jpg" alt="黄色不是float元素，绿色是float元素"></p>
+<p>  这里绿色还是浮动元素，但是黄色不再是浮动元素了。float属性定义，紧挨着浮动元素边界或者包含块的边界，这里黄色不再是浮动元素，所以绿色在下面并挨着包含块边界。</p>
+<ul>
+<li>黄色是float元素，绿色不是float元素。</li>
+</ul>
+<p>如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgjxk57r6tj31kw0rcdo2.jpg" alt="黄色是浮动元素而绿色不是浮动元素"></p>
+<p>  这里，绿色非浮动元素竟然在黄色浮动元素下面位置，浮动元素不在独占一行。关于float属性具体解释如下：</p>
+<ul>
+<li>因为CSS的float属性，作用是改变块元素对象的默认显示方式。block对象设置了float属性之后，它将不再独自占据一行。可以浮动到左侧或右侧。浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止。由于浮动框不在文档的普通流中，所以文档的普通流中的块框表现得就像浮动框不存在一样。</li>
+</ul>
+<ul>
+<li>给元素的float属性赋值后，就是脱离文档流，进行左右浮动，紧贴着父元素(默认为body文本区域)的左右边框。而此浮动元素在文档流空出的位置，由后续的(非浮动)元素填充上去：块级元素直接填充上去，若跟浮动元素的范围发生重叠，浮动元素覆盖块级元素。内联元素：有空隙就插入</li>
+</ul>
+<ul>
+<li>设置了float的元素自成一根,类于一个缩小的document,脱离了文档。所以过产生覆盖,除以float最初设计原因—-图文环绕.所以文字不过覆盖,而是环绕，也有例外：<ul>
+<li>设置了overflow:hidden的元素的文字也不会围绕</li>
+<li>ie浏览器中触发了haslayout的元素的文字不会围绕</li>
+</ul>
+</li>
+</ul>
+<h4 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h4><p>clear元素被用于控制浮动。主要是清除原来的浮动效果。回归文档流模式。存在left、right、both，分别用来清除向左浮动、清除向右浮动、清除左右浮动。</p>
+<h2 id="position属性解读"><a href="#position属性解读" class="headerlink" title="position属性解读"></a>position属性解读</h2><h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><p>static是默认值。任意<code>position:static;</code> 的元素不会被特殊的定位。一个static元素表示它不会被”positioned”, 一个position属性被设置为其他值的元素表示它会被”positioned”。</p>
+<h4 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h4><p>relative表示和static一样，除非你添加了一些额外的属性。</p>
+<p>在一个相对定位(position属性为relative)的元素上设置<code>top</code>、<code>right</code>、<code>bottom</code>和<code>left</code>属性会使其偏离其正常位置。</p>
+<blockquote>
+<p>注意：其他的元素的位置则不会受该元素的影响发生位置改变来弥补它偏离后剩下的空隙。</p>
+</blockquote>
+<p>举例：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgo0rh1i1tj31kw0yv47q.jpg" alt="Position属性为relative值时的效果"></p>
+<p>这里我们看到当内部元素的position属性为relative时，属性<code>top</code>、<code>left</code>、<code>bottom</code>、<code>right</code>属性开始生效。设置其属性为10px,元素发生了偏移。但是下面的元素位置并未跟着发生变化。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgo0xr0c8dj31kw0x348h.jpg" alt="Position属性为relative的效果"></p>
+<p>当我们设置<code>bottom</code>、<code>right</code>为10px，我们发现，<strong>该元素偏移是根据初始所占区域的位置进行偏移</strong>。也就是说，不设置top、bottom、left、right值的时候的位置。</p>
+<h4 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h4><p>一个固定定位(position属性的值为fixed)元素会相对于视窗来定位，这意味着即便页面滚动，它还是会停留在相同的位置。和relative一样，<code>top</code>、<code>right</code>、<code>bottom</code>和<code>left</code> 属性都可用。</p>
+<p>一个固定定位元素不会保留它原本在页面应有的空隙(脱离文档流)。</p>
+<p>举例：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgo194tb15j31kw0wlwnp.jpg" alt=""></p>
+<p>这里右下角元素Position属性的值为<code>fixed</code>， 该元素的所在范围是以视窗为范围进行布局。脱离原来的文档流。不随着滚动在移动。</p>
+<h4 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h4><p><code>absolute</code>是最棘手的position值。absolute与fixed的表现类似，但是它不是相对于视窗而是相对于最近的“positioned”祖先元素。如果绝对定位(position属性的值为<code>absolute</code>)的元素没有”positioned”祖先元素，那么它是相对于文档的body元素，并且它会随着页面滚动而移动。记住一个”positioned”元素是指position值不是<code>static</code>的元素。</p>
+<p>举例：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgo1tn6k0nj31kw0wiai7.jpg" alt="Position属性值为absolute时的效果"></p>
+<p>这里橙色并没有positioned， 所以标记为绿色并且position属性为<code>absolute</code>值的元素会以<code>body</code>为准进行偏移。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNbRwgy1fgo26b45i0j31kw0wc11y.jpg" alt=""></p>
+<p>这里我们将橙色元素的Position属性改为<code>relative</code>也就是”positioned“, 绿色元素就会相对于橙色元素进行布局。这里我绿色元素的<code>bottom</code>、<code>right</code>都是10px, 则绿色元素位移到了右下角，可以发现<code>absolute</code>元素相对于positioned的祖先元素的布局范围是祖先元素的范围。</p>
+<p>所以我们可以看出这postioned的三个属性<code>fixed</code>、<code>absolute</code>、<code>relative</code>在设置<code>left</code>、<code>right</code>、<code>bottom</code>、<code>top</code>的四个属性值时，所参照的范围边界是不同的。</p>
+<ul>
+<li><strong><code>relative</code> 的参照范围是 元素初始位置，也就是并没有设置<code>left</code>、<code>bottom</code>、<code>top</code>、<code>right</code>时的所占区域。</strong></li>
+<li><strong><code>absolute</code>的参考范围是”positioned“的祖先元素所占据的范围，如果没有”positioned“的元素则是<code>body</code>元素,并且脱离了文档流</strong>。</li>
+<li><strong><code>fixed</code>的参照范围是整个窗口页面可视区域的范围并且脱离了文档流</strong>。</li>
+</ul>
+<h2 id="flex高级布局"><a href="#flex高级布局" class="headerlink" title="flex高级布局"></a>flex高级布局</h2><p>采用Flex布局的元素，称为Flex容器(flex container) ，简称“容器”。 它的所有子元素自动称为容器成员，称为Flex项目,简称“项目”。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgryjgb247j30fn099mxq.jpg" alt="Flex基本概念"></p>
+<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴(cross axis)。</p>
+<p>主轴的开始位置：(与边框的交叉点)叫做<code>main start</code>, 结束位置叫做<code>main end</code>; 交叉轴的开始位置叫做<code>cross start</code> ，结束位置叫做<code>cross end</code>。</p>
+<p>项目默认沿株洲排列。单个项目占据的主轴的空间叫做<code>main size</code>, 占据的交叉轴空间叫做<code>cross size</code>.</p>
+<h4 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h4><ul>
+<li><strong>flex - direction</strong> </li>
+<li><strong>flex -wrap</strong> </li>
+<li><strong>flex- flow</strong></li>
+<li><strong>justify-content</strong></li>
+<li><strong>align-items</strong></li>
+<li><strong>align-content</strong></li>
+</ul>
+<h4 id="flex-direction-属性"><a href="#flex-direction-属性" class="headerlink" title="flex-direction 属性"></a>flex-direction 属性</h4><p><code>flex-direction</code> 属属性决定主轴的方向(即项目的排列方向)，其属性值：</p>
+<ul>
+<li><strong>row(默认值)</strong>：主轴为水平方向，起点在左端。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgrzxljm5aj31kw0twwmh.jpg" alt="flex-direction为row效果"></p>
+<ul>
+<li><strong>row-reverse</strong>：主轴为水平方向，起点在右端。</li>
+</ul>
+<p>演示代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row-reverse;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgs053140fj31kw0n3dna.jpg" alt="flex-direction为row-reserve效果"></p>
+<ul>
+<li><strong>column</strong>：主轴为垂直方向，起点在上沿。</li>
+</ul>
+<p>演示代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: column;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgs07ajpj9j31kw0n0ahk.jpg" alt="flex-direction为clumn效果"></p>
+<ul>
+<li><strong>column-reverse</strong>：主轴为垂直方向，起点在下沿。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: column-reverse;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgs0hj0ybwj31kw0oujz0.jpg" alt="flex-direction值为column-reverse效果"></p>
+<h4 id="flex-wrap属性"><a href="#flex-wrap属性" class="headerlink" title="flex - wrap属性"></a>flex - wrap属性</h4><p>默认情况下，项目都排在一条线（又称”轴线”）上。该属性定义，如果一条轴线排不下，如何换行。</p>
+<p>可能取三个值：</p>
+<ul>
+<li><strong>nowrap(默认)</strong>：不换行。</li>
+<li><strong>wrap</strong>:换行，第一个行在上方。</li>
+<li><strong>wrap-reverse</strong>:换行，第一个行在下方。</li>
+</ul>
+<p>前面两个都好理解，最后这个比较难理解，我们来演示看看：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">flex-wrap</span>: wrap-reverse;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看结果，第一行确实在下面位置。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgs1fwhafwj31kw0pnn7l.jpg" alt="flex-wrap为wrap-reverse效果"></p>
+<h4 id="flex-flow属性"><a href="#flex-flow属性" class="headerlink" title="flex-flow属性"></a>flex-flow属性</h4><p><code>flex-flow</code>属性是<code>flex-direction</code>属性和<code>flex-wrap</code>属性的简写形式，默认值为<code>row  nowrap</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</div></pre></td></tr></table></figure>
+<h4 id="justify-content属性"><a href="#justify-content属性" class="headerlink" title="justify-content属性"></a>justify-content属性</h4><p><code>justify-content</code>属性定义了项目在主轴上的对齐方式。下面是可能取的五个值：</p>
+<ul>
+<li><strong>flex-start(默认值)</strong>：左对齐</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: flex-start; <span class="comment">/*默认值*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt5s6us4oj31kw0vy47m.jpg" alt="justify-content为flex-start效果"></p>
+<ul>
+<li><strong>flex-end</strong>：右对齐</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: flex-end;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt5x8zcq7j31kw0vuqbx.jpg" alt="justify-content值为flex-end效果"></p>
+<ul>
+<li><strong>center</strong>：居中</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt5zp6kl0j31kw0vrths.jpg" alt="justify-content值为center效果"></p>
+<ul>
+<li><strong>spacing-between</strong>：两端对齐，项目之间的间隔相等</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: space-between;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt61m32quj31kw0vyguk.jpg" alt="justify-content值为spacing-between效果"></p>
+<ul>
+<li><strong>spacing-around</strong>：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: spacing-around;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt67x4c6vj31kw0vy7dl.jpg" alt="justify-content值为spacing-around效果"></p>
+<h4 id="align-items属性"><a href="#align-items属性" class="headerlink" title="align-items属性"></a>align-items属性</h4><p><code>align-item</code>属性定义项目在交叉轴上如何对齐。可能取的5个值如下：</p>
+<ul>
+<li><strong>flex-start</strong>：交叉轴的起点对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: space-around;</div><div class="line">	<span class="attribute">align-items</span>: flex-start;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.box-item</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">50px</span>;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">text-align</span>: center;</div><div class="line">	<span class="attribute">background</span>: orange;</div><div class="line">	<span class="attribute">margin</span>: <span class="number">3px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(1)</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(2)</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(3)</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(4)</span>&#123;</div><div class="line">	<span class="attribute">height</span>: <span class="number">300px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里为了展示，将几个元素的高度设为不等高，能清除看到效果。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt6k1o878j31kw0vrti3.jpg" alt="align-items值为flex-star效果"></p>
+<ul>
+<li><strong>flex-end</strong>：交叉轴的终点对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: space-around;</div><div class="line">	<span class="attribute">align-items</span>: flex-end;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我将上面的代码中align-items值改为flex-end,其他代码不懂，结果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt6lg8jm9j31kw0vudpa.jpg" alt="align-item值为flex-end效果"></p>
+<ul>
+<li>center：交叉轴的中点对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">justify-content</span>: space-around;</div><div class="line">	<span class="attribute">align-items</span>: center;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样将上面CSS样式中的<code>align-items</code>改为<code>center</code>，效果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt6omiubij31kw0vyti7.jpg" alt=""></p>
+<ul>
+<li><strong>baseline</strong>：项目的第一行文字的基线对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"> <span class="selector-class">.box</span> &#123;</div><div class="line"><span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line"><span class="attribute">display</span>: -webkit-flex;</div><div class="line"><span class="attribute">display</span>: flex;</div><div class="line"><span class="attribute">flex-direction</span>: row;</div><div class="line"><span class="attribute">justify-content</span>: space-around;</div><div class="line"><span class="attribute">align-items</span>: baseline;</div><div class="line"><span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line"><span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="selector-class">.box-item</span>&#123;</div><div class="line"><span class="attribute">width</span>: <span class="number">50px</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">40px</span>;</div><div class="line"><span class="attribute">text-align</span>: center;</div><div class="line"><span class="attribute">background</span>: orange;</div><div class="line"><span class="attribute">margin</span>: <span class="number">3px</span>;</div><div class="line"> &#125;</div><div class="line"> <span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(1)</span>&#123;</div><div class="line"><span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">10px</span>;</div><div class="line"> &#125;</div><div class="line"> <span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(2)</span>&#123;</div><div class="line"><span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">20px</span>;</div><div class="line"> &#125;</div><div class="line"> <span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(3)</span>&#123;</div><div class="line"><span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">50px</span>;</div><div class="line"> &#125;</div><div class="line"> <span class="selector-class">.box-item</span><span class="selector-pseudo">:nth-of-type(4)</span>&#123;</div><div class="line"><span class="attribute">height</span>: <span class="number">300px</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>这次我们设置，数字的字体大小不一样，将<code>align-items</code>设置为<code>baseline</code>，结果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt6sdod22j31kw0vwgv5.jpg" alt="align-item值为baseline效果"></p>
+<ul>
+<li><strong>stretch(默认值)</strong>：如果项目未设置高度或设为<code>auto</code>，将占满整个容器。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> <span class="selector-class">.box</span> &#123;</div><div class="line"><span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line"><span class="attribute">display</span>: -webkit-flex;</div><div class="line"><span class="attribute">display</span>: flex;</div><div class="line"><span class="attribute">flex-direction</span>: row;</div><div class="line"><span class="attribute">justify-content</span>: space-around;</div><div class="line"><span class="attribute">align-items</span>: stretch;</div><div class="line"> &#125;</div><div class="line"> <span class="selector-class">.box-item</span>&#123;</div><div class="line"><span class="attribute">width</span>: <span class="number">50px</span>;</div><div class="line"><span class="comment">/*height: 50px;*/</span></div><div class="line"><span class="attribute">font-size</span>: <span class="number">40px</span>;</div><div class="line"><span class="attribute">text-align</span>: center;</div><div class="line"><span class="attribute">background</span>: orange;</div><div class="line"><span class="attribute">margin</span>: <span class="number">3px</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt6g7b2c7j31kw0vun6p.jpg" alt="align-items值为stretch效果"></p>
+<h4 id="align-content属性"><a href="#align-content属性" class="headerlink" title="align-content属性"></a>align-content属性</h4><p><code>align-content</code>属性定义多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
+<ul>
+<li><strong>flex-start</strong>：多跟主轴起点对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">  <span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line">	<span class="attribute">display</span>: -webkit-flex;</div><div class="line">	<span class="attribute">display</span>: flex;</div><div class="line">	<span class="attribute">flex-direction</span>: row;</div><div class="line">	<span class="attribute">flex-wrap</span>: wrap;</div><div class="line">	<span class="attribute">align-content</span>: flex-start;</div><div class="line">	<span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="selector-class">.box-item</span>&#123;</div><div class="line">	<span class="attribute">width</span>: <span class="number">50px</span>;</div><div class="line">	<span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">	<span class="attribute">font-size</span>: <span class="number">40px</span>;</div><div class="line">	<span class="attribute">text-align</span>: center;</div><div class="line">	<span class="attribute">background</span>: orange;</div><div class="line">	<span class="attribute">margin</span>: <span class="number">3px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里是我们可以设置了<code>flex-wrap</code> 让当前元素换行，这时候就产生了多根轴线，设置<code>align-content</code>值为<code>flex-start</code>效果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt7c4eg90j31kw0w3akb.jpg" alt="align-content值为flex-start效果"></p>
+<ul>
+<li><strong>flex-end</strong>：多根主轴在终点对齐。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> <span class="selector-class">.box</span> &#123;</div><div class="line">	<span class="attribute">border</span>: <span class="number">2px</span> solid black;</div><div class="line"><span class="attribute">display</span>: -webkit-flex;</div><div class="line"><span class="attribute">display</span>: flex;</div><div class="line"><span class="attribute">flex-direction</span>: row;</div><div class="line"><span class="attribute">flex-wrap</span>: wrap;</div><div class="line"><span class="attribute">align-content</span>: flex-end;</div><div class="line"><span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line"><span class="attribute">height</span>: <span class="number">400px</span>;	</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="selector-class">.box-item</span>&#123;</div><div class="line"><span class="attribute">width</span>: <span class="number">50px</span>;</div><div class="line"><span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line"><span class="attribute">font-size</span>: <span class="number">40px</span>;</div><div class="line"><span class="attribute">text-align</span>: center;</div><div class="line"><span class="attribute">background</span>: orange;</div><div class="line"><span class="attribute">margin</span>: <span class="number">3px</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>将<code>align-content</code>改为<code>flex-end</code>，效果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt7h1lqapj31kw0vwdpy.jpg" alt="align-content值为flex-end效果"></p>
+<ul>
+<li><strong>center</strong>：多根主轴在中点对齐。</li>
+</ul>
+<p>将上边代码中<code>align-content</code>值改为<code>center</code>,效果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt7jrezzqj31kw0w1woq.jpg" alt="align-content值为center效果"></p>
+<ul>
+<li><strong>space-between</strong>：多根主轴两端对齐。</li>
+</ul>
+<p>同样，将上面代码改为<code>space-between</code>后的效果：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt7n6m6kbj31kw0w0tiv.jpg" alt="align-content值为space-between效果"></p>
+<ul>
+<li><strong>space-around</strong>:每个主轴两侧的间隔相等。</li>
+</ul>
+<p>将align-content值改为<code>space-around</code>后，效果如下：</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt811yf0sj31kw0vvdq9.jpg" alt="align-content值为space-aroun效果"></p>
+<ul>
+<li><strong>stretch(默认值)</strong>：主轴上所有项目等高度拉伸。</li>
+</ul>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fgt83npycgj31kw0vyk25.jpg" alt="align-content值为stretch效果"></p>
+<h4 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h4><ul>
+<li>order</li>
+</ul>
+<p><code>order</code>属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.box-item&#123;</div><div class="line">  order:1   /*默认值为0*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNc79gy1fgua1ip3a0j31kw0sp7ez.jpg" alt="order值为1效果"></p>
+<ul>
+<li>flex-grow</li>
+</ul>
+<p><code>flex-grow</code> 属性定义项目的放大比例，默认为0， 即如果存在剩余空间，也不放大。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.box-items&#123;</div><div class="line">  flow-grow:1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNc79gy1fgucefs42dj31kw0uoqch.jpg" alt="flex-grow值为1效果"></p>
+<ul>
+<li>flex-shrink</li>
+</ul>
+<p><code>flex-shrink</code>属性定义了项目缩小比例，默认为1， 即如果空间不足，该项目将缩小。</p>
+<p>如果所有项目的flex-shink属性都为1，当空间不足时，豆浆等比例缩小。如果一个项目的<code>flex-shink</code>属性为0， 其他项目都为1，则空间不足时， 前者不缩小。</p>
+<ul>
+<li>flex-basis</li>
+</ul>
+<p><code>flex-basis</code> 属性定义了在分配多余空间之前，项目占据的主轴空间(main size)浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为<code>auto</code>，即项目的本来大小。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.box-items&#123;</div><div class="line">  flex-basis:30px;</div><div class="line">  width:300px;  /*这里无效*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们看到了，当设置了<code>flex-basis</code>之后，原来的<code>width</code>属性无效了，取而代之的是<code>flex-basis</code>参数。它可以设置为<code>width</code>或<code>height</code>属性一样的值(比如350px)，则项目将占据固定空间。</p>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNc79gy1fgudnj9dt4j31kw10vtio.jpg" alt="flex-basis值为30px"></p>
+<ul>
+<li>flex</li>
+</ul>
+<p>flex属性是<code>flex-grow</code>, <code>flex-shrink</code>和<code>flex-basis</code>的简写，默认值为 <code>0 1  auto</code>. </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box-item</span> &#123; </div><div class="line">	<span class="attribute">flex</span>: none | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该属性有两个快捷键<code>:auto (1 1 auto)</code> 和 <code>none (0 0 auto)</code></p>
+<p>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
+<ul>
+<li>align-self</li>
+</ul>
+<p><code>align-self</code>属性允许单个项目有与其他项目不一样的对齐方式，可覆盖<code>align-items</code>属性。默认值为<code>auto</code>,表示继承父元素的<code>align-items</code>属性，如果没有父元素则等同于<code>stretch</code>。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.item</span> &#123; </div><div class="line">	<span class="attribute">align-self</span>: auto | flex-start | flex-end | center | baseline | stretch;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tNc79gy1fgudx3s4tgj31kw10swp8.jpg" alt="align-self值为flex-end效果"></p>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>“响应式布局”，是一种让网站针对不同浏览器和设备“呈现”不同显示效果的策略。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>媒体查询包含一个可选的媒体类型和零个或者多个满足CSS3规范的表达式。这些表达式描述了媒体特征，最终会被解析为true or false。</p>
+<p>两种每次查询的方式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--link 元素中的CSS媒体查询--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"(max-width:600px)"</span> <span class="attr">href</span>=<span class="string">"./demo.css"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 在样式列表中使用媒体查询 */</span></div><div class="line">@<span class="keyword">media</span> (max-width:<span class="number">900px</span>)&#123;</div><div class="line">  <span class="selector-class">.static_div</span> &#123;</div><div class="line">     <span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="逻辑操作符"><a href="#逻辑操作符" class="headerlink" title="逻辑操作符"></a>逻辑操作符</h4><h5 id="and"><a href="#and" class="headerlink" title="and"></a>and</h5><p>and操作符用于合并多个媒体属性或合并媒体属性与媒体类型。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (max-width:<span class="number">400px</span>) and (max-height:<span class="number">300px</span>)  &#123;</div><div class="line">   <span class="selector-class">.static_div</span> &#123;</div><div class="line">       <span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="逗号分隔符-or"><a href="#逗号分隔符-or" class="headerlink" title="逗号分隔符(or)"></a>逗号分隔符(or)</h5><p>媒体查询中使用逗号分隔效果等同于or逻辑操作符。当使用逗号分隔的媒体查询时，如何任何一个媒体查询返回真，样式就是有效的。逗号分隔的列表每个查询都是独立的，一个查询中的操作符并不影响其他的媒体查询。这意味着逗号媒体查询列表能够作用于不同的媒体属性、类型和状态。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 在样式列表中使用媒体查询 */</span></div><div class="line">@<span class="keyword">media</span> (max-width:<span class="number">400px</span>), (max-width:<span class="number">300px</span>)  &#123;</div><div class="line">   <span class="selector-class">.static_div</span> &#123;</div><div class="line">       <span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="not"><a href="#not" class="headerlink" title="not"></a>not</h5><p>not 关键字应用于整个媒体查询，在媒体查询为假时返回真。在逗号媒体查询列表中not仅会否定它应用到媒体查询而不影响其他的媒体查询。not关键字仅能用于整个查询，而不能用于一个独立的查询。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> not all and (max-width:<span class="number">200px</span>)  &#123;</div><div class="line">     <span class="selector-class">.static_div</span> &#123;</div><div class="line">     <span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> not (all and (max-width:<span class="number">200px</span>))  &#123;</div><div class="line">    <span class="selector-class">.static_div</span> &#123;</div><div class="line">     	<span class="attribute">border</span>: <span class="number">2px</span> solid red;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="媒体属性"><a href="#媒体属性" class="headerlink" title="媒体属性"></a>媒体属性</h3><p>通用媒体属性总结如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>是否接受min/max</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>length</td>
+<td>是</td>
+<td>描述了输出设备的渲染区域的宽度</td>
+</tr>
+<tr>
+<td>height</td>
+<td>length</td>
+<td>是</td>
+<td>描述了输出设备的渲染区域的高度</td>
+</tr>
+<tr>
+<td>device-width</td>
+<td>length</td>
+<td>是</td>
+<td>描述了输出设备的宽度(整个屏幕或页的宽度，不仅仅是渲染宽度)</td>
+</tr>
+<tr>
+<td>device-height</td>
+<td>length</td>
+<td>是</td>
+<td>描述了输出设备的高度(整个屏幕或页的高度，不仅仅是渲染高度)</td>
+</tr>
+<tr>
+<td>orientation</td>
+<td>lanscape\portrait</td>
+<td>否</td>
+<td>指定了设备处于横屏,还是竖屏模式。</td>
+</tr>
+<tr>
+<td>aspect-ratio</td>
+<td>ratio</td>
+<td>是</td>
+<td>描述了输出设备目标显示区域的宽高比</td>
+</tr>
+<tr>
+<td>device-aspect-ratio</td>
+<td>tatio</td>
+<td>是</td>
+<td>描述了输出设备的宽高比。该值代表两个一个“/”分隔的正整数。</td>
+</tr>
+<tr>
+<td>color</td>
+<td>color</td>
+<td>是</td>
+<td>指出设备每个像素单元的比特值，如果设备不支持输出颜色，则为零</td>
+</tr>
+<tr>
+<td>color-index</td>
+<td>integer</td>
+<td>是</td>
+<td>指定了输出设备中颜色查询表中的条目数目</td>
+</tr>
+<tr>
+<td>monochrome</td>
+<td>integer</td>
+<td>是</td>
+<td>指定了一个黑白(灰度)设备每个像素的比特数。</td>
+</tr>
+<tr>
+<td>scan</td>
+<td>progressive\interlace</td>
+<td>否</td>
+<td>描述了电视输出设备的扫描过程。</td>
+</tr>
+<tr>
+<td>resolution</td>
+<td>resolution</td>
+<td>是</td>
+<td>指定了输出设备的分辨率(像素密度)。分辨率可以用没英寸(dpi)或每厘米(dpcm)的点数来表示。</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>integer</td>
+<td>否</td>
+<td>判断输出设备是网格还是位图设备。如果设备是基于网格的输出为1，否则为0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="手机Web自适应布局总结"><a href="#手机Web自适应布局总结" class="headerlink" title="手机Web自适应布局总结"></a>手机Web自适应布局总结</h2><p>在移动开发之前，我们首先要做的就是加入以下这段内容：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>作用是将默认的宽度设定为设备的宽度，限制用户缩放屏幕，同时关闭手势缩放功能。</p>
+<p>然后要做的就是宽度自适应手机的屏幕。设置width和height的值为100%;</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span> &#123;</div><div class="line">  <span class="attribute">width</span>:<span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>:<span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其次使用REM属性，来设置统一高度等一系列可以用来用px来标注的单位。Rem是相对于根元素设置某个元素的字体大小。</p>
+<p>这样就可以根据屏幕宽度大小，修改根元素的字体大小，来调整个界面。</p>
+<p>有时候设计师们是在真实的iphone5机器上做的标注，而iphone5系列的分辨率是640，实际上我们在开发只需要按照320的标准来。为了节省时间，不至于每次都需要将标注取半，我们可以将整个网页缩放比例，模拟提高分辨率。这个做法很简单，为不同的设备设置不同的meta即可:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> scale = <span class="number">1</span> / devicePixelRatio;</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">'meta[name="viewport"]'</span>).setAttribute(<span class="string">'content'</span>, <span class="string">'initial-scale='</span> + scale + <span class="string">', maximum-scale='</span> + scale + <span class="string">', minimum-scale='</span> + scale + <span class="string">', user-scalable=no'</span>);</div></pre></td></tr></table></figure>
+<p>这种设置同样可以解决安卓机器下1px像素看起来过粗问题。因为在像素为1px的安卓下机器下，边框的1px被压缩成了0.5px了。</p>
+<p>还有我们也可以使用媒体查询方式，修改根元素的大小，来自适应布局。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more">分享到：</a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+</div>
+<script>
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<style>
+    .bdshare_popup_box {
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .bdshare-button-style0-16 a,
+    .bdshare-button-style0-16 .bds_more {
+        padding-left: 20px;
+        margin: 6px 10px 6px 0;
+    }
+    .bdshare_dialog_list a,
+    .bdshare_popup_list a,
+    .bdshare_popup_bottom a {
+        font-family: 'Microsoft Yahei';
+    }
+    .bdshare_popup_top {
+        display: none;
+    }
+    .bdshare_popup_bottom {
+        height: auto;
+        padding: 5px;
+    }
+</style>
+
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/lanYouHua" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="weibo" href="http://weibo.com/u/3208223907" target="_blank">
+                        <i class="icon fa fa-weibo"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/19/iOS-client-network/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">iOS客户端网络优化指南</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/06/04/H5-layout-summary/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh01u0mhkvj30nm0bt74v.jpg)" alt="HTML5布局的个人总结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/HTML5/">HTML5</a></p>
+                            <p class="item-title"><a href="/2017/06/04/H5-layout-summary/" class="title">HTML5布局的个人总结</a></p>
+                            <p class="item-date"><time datetime="2017-06-04T13:44:34.000Z" itemprop="datePublished">2017-06-04</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/19/iOS-client-network/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh02ae9rzgj30nm0btmzv.jpg)" alt="iOS客户端网络优化指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/iOS/">iOS</a></p>
+                            <p class="item-title"><a href="/2017/05/19/iOS-client-network/" class="title">iOS客户端网络优化指南</a></p>
+                            <p class="item-date"><time datetime="2017-05-19T13:22:50.000Z" itemprop="datePublished">2017-05-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/13/Python-object/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh027ya2pgj30nm0btwlt.jpg)" alt="python学习之面向对象" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2017/05/13/Python-object/" class="title">python学习之面向对象</a></p>
+                            <p class="item-date"><time datetime="2017-05-13T01:05:06.000Z" itemprop="datePublished">2017-05-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/07/Mysql-insert-update/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://7xoorj.com1.z0.glb.clouddn.com/mkdown/image/006tKfTcgy1fh024tk282j30nm0btdh3.jpg)" alt="MySQL 之 INSERT TABLE … VALUES …  ON DUPLICATE KEY UP DATE … 用法总结" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/MySQL/">MySQL</a></p>
+                            <p class="item-title"><a href="/2017/05/07/Mysql-insert-update/" class="title">MySQL 之 INSERT TABLE … VALUES …  ON DUPLICATE KEY UP DATE … 用法总结</a></p>
+                            <p class="item-date"><time datetime="2017-05-07T06:50:03.000Z" itemprop="datePublished">2017-05-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/07/Python-file-operation/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://ws1.sinaimg.cn/large/006tKfTcgy1fh027ya2pgj30nm0btwlt.jpg)" alt="python学习之文件操作" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Technology/">Technology</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Technology/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2017/05/07/Python-file-operation/" class="title">python学习之文件操作</a></p>
+                            <p class="item-date"><time datetime="2017-05-07T06:50:03.000Z" itemprop="datePublished">2017-05-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/">Technology</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/HTML5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Technology/iOS/">iOS</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSURLSession/">NSURLSession</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/box-sizing/">box-sizing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flex/">flex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/float/">float</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inline-block/">inline-block</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/position/">position</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/NSURLSession/" style="font-size: 10px;">NSURLSession</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/box-sizing/" style="font-size: 10px;">box-sizing</a> <a href="/tags/flex/" style="font-size: 10px;">flex</a> <a href="/tags/float/" style="font-size: 10px;">float</a> <a href="/tags/iOS/" style="font-size: 10px;">iOS</a> <a href="/tags/inline-block/" style="font-size: 10px;">inline-block</a> <a href="/tags/position/" style="font-size: 10px;">position</a>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2017 Lanyouhua</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
